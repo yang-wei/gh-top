@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha ./test/*"
+    "test": "mocha ./test/*.js"
   },
   "author": "",
   "license": "ISC",
@@ -16,6 +16,7 @@
   "dependencies": {
     "body-parser": "^1.9.2",
     "express": "^4.10.2",
+    "lodash": "^2.4.1",
     "mongoskin": "^1.4.4"
   }
 }
