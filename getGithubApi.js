@@ -9,11 +9,13 @@ var options = {
   }
 };
 
-function callback(error, response, body) {
+function fetchAPI(error, response, body) {
   if(!error && response.statusCode === 200) {
     var result = JSON.parse(body);
     console.log(body);
   }
 }
 
-request(options, callback);
+var requestAPI = request(options, fetchAPI);
+
+exports.module = requestAPI;
