@@ -1,7 +1,6 @@
 var superagent = require('superagent'),
     expect = require('expect.js');
 
-
 describe('gh-star rest api server', function() {
   
   var ENDPOINT_URI = 'http://localhost:3000';
