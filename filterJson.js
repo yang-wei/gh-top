@@ -18,10 +18,8 @@ function filteredJSON(origin, filters) {
 
   // change to array - expected single object  example: { name: 'Taro', age: '3' }
   if(origin.constructor !== Array) {
-    // TODO fixe perfomance
-    var originClone = JSON.parse(JSON.stringify(origin));
-    origin = [];
-    origin.push(originClone);
+    tempArray.push(origin);
+    origin = tempArray;
   }
   // change to array - expected single string  example: 'name'
   if(typeof filters === 'string') {
