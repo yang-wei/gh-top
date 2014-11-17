@@ -49,7 +49,7 @@ describe('filter JSON module', function() {
     expect(filterJSON(mockedData, needed)[0]).to.only.have.keys(['id', 'name']);
     expect(filterJSON(mockedData, needed)[0]).to.eql({ id: '0', name: 'User' });
     expect(filterJSON(mockedData, needed)[1]).to.only.have.keys(['id', 'name']);
-    expect(filterJSON(mockedData, needed)[1]['name']).to.eql('User2');
+    expect(filterJSON(mockedData, needed)[2]['name']).to.eql('User2');
 
   })
 });

@@ -6,8 +6,11 @@ module.exports = filteredJSON;
  * 
  * @param {Array|Object} origin 
  * @param {Object} pick 
- *      For example: 1 level object { name: 'name', id: 'id' }
- *        or multiple level 'obj' { id: '0', user { 'name': 'Yang', age: '14' } }
+ *
+ * @example 
+ var obj =  { id: '0', user { 'name': 'Yang', age: '14' } }
+ filteredJSON(obj, {id: 'id'}) === '0'
+ filteredJSON(obj, {name: 'user.name'}) === 'Yang'
  */
 
 function filteredJSON(origin, pick) {
@@ -19,16 +22,19 @@ function filteredJSON(origin, pick) {
   
   // change to array - expected single string  example: 'name'
   if(getType(origin) !== 'array') {
-    stackArray.push(origin);
+   stackArray.push(origin);
     origin = stackArray; 
   }
 
   origin.forEach(function(o) {
-    var newObj = {};
+    var newObj = {},
+        value;
     for(var prop in pick) {
       if(pick.hasOwnProperty(prop)) {
-        var value = pick[prop];     
-        newObj[prop] = o[value];
+
+        // split the string into array if it has depth(contains dots)
+        var arg = pick[prop].split('.'); 
+        newObj[prop] = diveObj(o, arg);      
       }
     } 
     newArray.push(newObj);
@@ -48,3 +54,21 @@ function getType(obj) {
   return typeof obj;
 }
 
+/*
+ * A function to get the value of property recursively
+ *
+ * @param {Object} obj
+ * @param {Array} arg 
+ * 
+ * return value of property
+ *
+ */
+function diveObj(obj, arg) {
+  console.log(obj);
+  if(arg.length > 0) {
+    var prop = arg.shift();
+    return diveObj(obj[prop], arg)
+  }
+  var v = obj;
+  return v;
+}
