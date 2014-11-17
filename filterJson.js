@@ -3,39 +3,36 @@
 module.exports = filteredJSON;
 
 /*
- * typeof obj === 'array'
- * typeof filter === 'array'
+ * 
+ * @param {Array|Object} origin 
+ * @param {Object} pick 
+ *      For example: 1 level object { name: 'name', id: 'id' }
+ *        or multiple level 'obj' { id: '0', user { 'name': 'Yang', age: '14' } }
  */
 
-function filteredJSON(origin, filters) {
-  var slice = Array.prototype.slice,
-      len = filters.length,
-      tempArray = [],
-      newObj = {},
-      newArray = [];
+function filteredJSON(origin, pick) {
 
-  if(origin.length === 0) return newArray; 
+  var newArray = [],
+      stackArray = [];
 
-  // change to array - expected single object  example: { name: 'Taro', age: '3' }
-  if(getType(origin) !== 'array') {
-    tempArray.push(origin);
-    origin = tempArray;
-  }
+  if(pick === null) return origin;
+  
   // change to array - expected single string  example: 'name'
-  if(getType(filters) === 'string') {
-    filters = slice.call(arguments, 1);
+  if(getType(origin) !== 'array') {
+    stackArray.push(origin);
+    origin = stackArray; 
   }
 
   origin.forEach(function(o) {
-    for(var i = 0; i < len; i++) {
-      var key= filters[i];
-      if(o.hasOwnProperty(key) && typeof o.key !== 'object') {
-        newObj[key] = o[key];
+    var newObj = {};
+    for(var prop in pick) {
+      if(pick.hasOwnProperty(prop)) {
+        var value = pick[prop];     
+        newObj[prop] = o[value];
       }
     } 
     newArray.push(newObj);
   });
- 
     return newArray;
 };
 
@@ -50,3 +47,4 @@ function getType(obj) {
   } 
   return typeof obj;
 }
+
