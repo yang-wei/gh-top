@@ -64,7 +64,6 @@ function getType(obj) {
  *
  */
 function diveObj(obj, arg) {
-  console.log(obj);
   if(arg.length > 0) {
     var prop = arg.shift();
     return diveObj(obj[prop], arg)

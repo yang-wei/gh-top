@@ -1,5 +1,6 @@
 var request = require('request'),
-    filterJSON = require('./filterJSON');
+    filterJSON = require('./filterJSON'),
+    updateDb = require('./updateDb');
 
 var GH_API_ROOT = 'https://api.github.com/';
 
@@ -12,7 +13,7 @@ var options = {
 };
 
 var pickJSON = {
-  id: 'id',
+  gh_id: 'id',
   name: 'name',
   full_name: 'full_name',
   owner: 'owner.login',
@@ -28,7 +29,8 @@ function fetchAPI(error, response, body) {
   if(error) { console.log(response) }
   if(!error && response.statusCode === 200) {
     var result = JSON.parse(body);
-    var storeDB = filterJSON(result.items, pickJSON);
+    var items = filterJSON(result.items, pickJSON);
+    updateDb(items, console.log);
   }
 }
 
