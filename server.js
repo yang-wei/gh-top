@@ -1,7 +1,9 @@
 'use strict';
 var express =require('express'),
     mongoskin = require('mongoskin'),
-    bodyParser = require('body-parser');
+    bodyParser = require('body-parser'),
+    getGithubApi = require('./getGithubApi')
+    ;
 
 var app = express();
 
@@ -16,15 +18,9 @@ app.get('/', function(request, response) {
 app.get('/api/repos', function(request, response, next){
   db.collection('repos').find({}).toArray(function(e, results){
     if(e) return next(e);
-    response.send(results);
+    response.json(results);
   }) 
 });
 
-app.post('/api/repos', function(request, response, next) {
-  db.collection('repos').insert(request.body, {}, function(e, results) {
-    if(e) return next(e);
-    response.json(results);
-  })
-});
-
 app.listen(3000);
+

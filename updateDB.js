@@ -12,7 +12,6 @@ function updateDb(items, callback) {
     if(e) callback(e.messages);
     db.collection('repos').insert(items, {}, function(e, newItem) {
       callback("Deleted " + oldItemNum + " item and inserted " + newItem.length + " repos at " + new Date());
-      process.exit(0);
     });
   });
 }

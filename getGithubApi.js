@@ -34,6 +34,7 @@ function fetchAPI(error, response, body) {
   }
 }
 
-var requestAPI = request(options, fetchAPI);
+var requestApi = setInterval( function() { request(options, fetchAPI); }, 5000);
 
-exports.module = requestAPI;
+module.exports = requestApi; 
+
