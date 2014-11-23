@@ -12,7 +12,6 @@ function LatestAPI(url) {
       'Accept': 'application/vnd.github.v3+json'
     }
   };
-  
 }
 
 LatestAPI.prototype.fetchAPI = function(callback) {
@@ -35,7 +34,7 @@ LatestAPI.prototype.fetchAPI = function(callback) {
         var result = JSON.parse(body);
         var items = filterJSON(result.items, pickJSON);
         updateDb(items, console.log);
-        callback(response); 
+        callback(null, response); 
       }
     });
 }

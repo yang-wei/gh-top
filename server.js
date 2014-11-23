@@ -28,7 +28,8 @@ app.get('/api/repos', function(request, response, next){
 app.listen(port, function() {
   console.log("Successfully connect to port " + port);
   var initAPI = new LatestAPI(gh_url);
-  initAPI.fetchAPI(function(response) {
+  initAPI.fetchAPI(function(error, response) {
+    if(error) { console.error(error); }
     if(response) {
       console.log("Data initialization done.") 
     }
@@ -38,7 +39,8 @@ app.listen(port, function() {
   var interval = 3600*1000;
   (function schedule() {
     setTimeout(function() {
-      API.fetchAPI(function(response) {
+      API.fetchAPI(function(error, response) {
+        if(error) { console.error(error); }
         if(response) 
           schedule();
       });
