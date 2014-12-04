@@ -2,20 +2,29 @@
 var express =require('express'),
     mongoskin = require('mongoskin'),
     bodyParser = require('body-parser'),
-    LatestAPI = require('./getGithubApi')
+    LatestAPI = require('./getGithubApi'),
+    ReactAsync = require('react-async'),
+    nodejsx = require('node-jsx').install(),
+    App = require('./client')
     ;
 
 var app = express();
 
 app.use(bodyParser.json());
+app.use('/bower_components', express.static(__dirname + '/bower_components'));
 
 var db = mongoskin.db('mongodb://@localhost:27017/repos', {safe:true});
 
-var port = 3000;
+var port = 5000;
 var gh_url = 'https://api.github.com/'
 
-app.get('/', function(request, response) {
-  response.send("Hello world");
+app.get('/', function(request, response, next) {
+  var app = App();
+  ReactAsync.renderToStringAsync(app, function(err, markup) {
+    if(err) return next(err);
+
+    response.send("<!doctype html>\n" + markup );
+  });
 });
 
 app.get('/api/repos', function(request, response, next){
@@ -36,6 +45,7 @@ app.listen(port, function() {
   });
 
   var API = new LatestAPI(gh_url);
+  // set interval to an hour
   var interval = 3600*1000;
   (function schedule() {
     setTimeout(function() {

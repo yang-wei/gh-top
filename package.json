@@ -16,7 +16,11 @@
   "dependencies": {
     "body-parser": "^1.9.2",
     "express": "^4.10.2",
+    "fibers": "^1.0.2",
     "lodash": "^2.4.1",
-    "mongoskin": "^1.4.4"
+    "mongoskin": "^1.4.4",
+    "node-jsx": "^0.12.4",
+    "react": "^0.12.1",
+    "react-async": "^2.0.1"
   }
 }
