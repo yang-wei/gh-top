@@ -3,9 +3,9 @@ filterJSON = require('./filterJSON'),
 updateDb = require('./updateDb');
 
 function LatestAPI(url) {
-   this.GH_API_ROOT = url;
+   this.GH_API_ROOT = url + 'search/repositories?q=php&per_page=3';
    this.options = {
-    url: this.GH_API_ROOT + 'search/repositories?q=language:javascript&per_page=5', 
+    //url: this.GH_API_ROOT, 
     headers: {
       'User-Agent': 'nodejs',
       'Content-type': 'application/json',
@@ -29,15 +29,25 @@ LatestAPI.prototype.fetchAPI = function(callback) {
       language: 'language'
     }; 
 
-    request(this.options, function(error, response, body) {
-      if(error) { callback(error) }
-      if(!error && response.statusCode === 200) {
-        var result = JSON.parse(body);
-        var items = filterJSON(result.items, pickJSON);
+    var result = '';
+
+    request
+      .get(this.GH_API_ROOT, this.options)
+      .on('error', function(err) {
+        callback(err);
+      })
+      .on('response', function(response) {
+        callback(response.statusCode);
+      })
+      .on('data', function(chunk) {
+        result += chunk;
+      })
+      .on('end', function() {
+        var data = JSON.parse(result);
+        var items = filterJSON(data.items, pickJSON);
         updateDb(items, console.log);
-        callback(null, response); 
-      }
-    });
+      });
+
 }
 
 module.exports = LatestAPI; 
