@@ -3,7 +3,7 @@ filterJSON = require('./filterJSON'),
 updateDb = require('./updateDb');
 
 function LatestAPI(url) {
-   this.GH_API_ROOT = url + 'search/repositories?q=php&per_page=3';
+   this.GH_API_ROOT = url + 'search/repositories?q=language:javascript&sort=stars&per_page=100';
    this.options = {
     //url: this.GH_API_ROOT, 
     headers: {
