@@ -3,6 +3,7 @@
 var React = require('react');
 var Hello = require('./components/hello');
 var Repo = require('./components/repo');
+var TreeMap = require('./components/treemap');
 
 var App = React.createClass({
   render: function() {
@@ -12,7 +13,7 @@ var App = React.createClass({
           <link href='./bower_components/fontawesome/css/font-awesome.css' rel='stylesheet' />
         </head>
         <Hello text='React' />
-        <Repo />
+        <TreeMap text='treemap'/>
       </html>
     );
   }
