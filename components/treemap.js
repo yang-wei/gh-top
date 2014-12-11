@@ -7,25 +7,32 @@ var _ = require('lodash');
 var Cell = React.createClass({
     render: function() {
 
-    var cellStyle = {
-        left: this.props.left,
-        top: this.props.top,
-        width: this.props.width,
-        height: this.props.height,
-        background: this.props.bgColor,
-        overflow: 'hidden',
-        position: 'absolute'
-      };
+      var cellStyle = {
+          left: this.props.left,
+          top: this.props.top,
+          width: this.props.width,
+          height: this.props.height,
+          background: this.props.bgColor,
+          overflow: 'hidden',
+          position: 'absolute'
+        };
 
     return (
       <div style={cellStyle} className='cell' >
         {this.props.children}
       </div>
-    )
+    );
   }
-})
+});
 
 var DataSeries = React.createClass({
+  getDefaultProps: function() {
+    return {
+      data: [],
+      width: '', 
+      height: '',
+    };
+  },
   render: function() {
         var color = d3.scale.category10();
         var treemap = d3.layout.treemap()
@@ -51,6 +58,13 @@ var DataSeries = React.createClass({
 });
 
 var Treemap = React.createClass({
+  getDefaultProps: function() {
+    return {
+      data: [], 
+      width: '600',
+      height: '300'
+    }
+  },
   render: function() {
     var style = {
       position: 'relative'
