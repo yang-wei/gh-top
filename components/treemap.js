@@ -12,11 +12,15 @@ var Cell = React.createClass({
         top: this.props.top,
         width: this.props.width,
         height: this.props.height,
-        background: this.props.bgColor 
+        background: this.props.bgColor,
+        overflow: 'hidden',
+        position: 'absolute'
       };
 
     return (
-      <div style={cellStyle} className='cell' ></div>
+      <div style={cellStyle} className='cell' >
+      {this.props.children}
+      </div>
     )
   }
 })
@@ -45,8 +49,9 @@ var DataSeries = React.createClass({
                   <Cell
                     left={tree.x} top={tree.y}    
                     width={tree.dx} height={tree.dy}
-                    text={tree.name}
-                    key={i} bgColor={color(i)} /> 
+                    key={i} bgColor={color(i)}> 
+                  {tree.name}
+                  </Cell>
                   )
         });
         
@@ -58,10 +63,15 @@ var DataSeries = React.createClass({
 
 var Treemap = React.createClass({
   render: function() {
+    var style = {
+      width: 600,
+      height: 300,
+      position: 'relative'
+    };
     return (
-      <svg width={600} height={300}>
+      <div style={style}>
         <DataSeries />
-      </svg>
+      </div>
     )
   }
 });
