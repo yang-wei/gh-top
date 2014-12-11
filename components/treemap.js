@@ -19,32 +19,21 @@ var Cell = React.createClass({
 
     return (
       <div style={cellStyle} className='cell' >
-      {this.props.children}
+        {this.props.children}
       </div>
     )
   }
 })
 
-var tree = {
-    name: "tree",
-    children: [
-        { name: "Word-wrapping comes for free in HTML", size: 16000 },
-        { name: "animate makes things fun", size: 8000 },
-        { name: "data data everywhere...", size: 5220 },
-        { name: "display something beautiful", size: 3623 },
-        { name: "flex your muscles", size: 984 },
-        { name: "physics is religion", size: 6410 },
-        { name: "query and you get the answer", size: 2124 }
-    ]
-};
-
 var DataSeries = React.createClass({
   render: function() {
         var color = d3.scale.category10();
-        var treemap = d3.layout.treemap().size([400, 400]).sticky(true).value(function(d) { return d.size }); 
+        var treemap = d3.layout.treemap()
+                        .size([this.props.width, this.props.height])
+                        .sticky(true)
+                        .value(function(d) { return d.size }); 
 
-        var treemapData = treemap(tree);
-        var maps = treemapData.map(function(tree, i) {
+        var maps = treemap(this.props.data).map(function(tree, i) {
            return (
                   <Cell
                     left={tree.x} top={tree.y}    
@@ -64,13 +53,11 @@ var DataSeries = React.createClass({
 var Treemap = React.createClass({
   render: function() {
     var style = {
-      width: 600,
-      height: 300,
       position: 'relative'
     };
     return (
       <div style={style}>
-        <DataSeries />
+        <DataSeries data={this.props.data} width={this.props.width} height={this.props.height}/>
       </div>
     )
   }
