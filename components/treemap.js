@@ -31,14 +31,16 @@ var DataSeries = React.createClass({
       data: [],
       width: '', 
       height: '',
+      value: ''
     };
   },
   render: function() {
+        var val = this.props.value;
         var color = d3.scale.category10();
         var treemap = d3.layout.treemap()
                         .size([this.props.width, this.props.height])
                         .sticky(true)
-                        .value(function(d) { return d.size }); 
+                        .value(function(d) { return d[val] }); 
 
         var maps = treemap(this.props.data).map(function(tree, i) {
            return (
@@ -62,7 +64,8 @@ var Treemap = React.createClass({
     return {
       data: [], 
       width: '600',
-      height: '300'
+      height: '300',
+      value: ''
     }
   },
   render: function() {
@@ -71,7 +74,7 @@ var Treemap = React.createClass({
     };
     return (
       <div style={style}>
-        <DataSeries data={this.props.data} width={this.props.width} height={this.props.height}/>
+        <DataSeries data={this.props.data} value='size' width={this.props.width} height={this.props.height}/>
       </div>
     )
   }
