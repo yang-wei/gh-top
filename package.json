@@ -4,13 +4,27 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha ./test/*.js"
+    "test": "npm run test-server & npm run test-comp",
+    "test-server": "./node_modules/.bin/mocha --reporter list",
+    "test-comp": "./node_modules/.bin/mocha -R spec --compilers jsx:components/tests/helper.js components/tests/*test.js"
+  },
+  "jest": {
+    "scriptPreprocessor": "<rootDir>/components/preprocessor.js",
+    "testPathDirs": [
+      "<rootDir>/components"
+    ],
+    "unmockedModulePathPatterns": [
+      "<rootDir>/node_modules/react"
+    ]
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "expect.js": "^0.3.1",
+    "jest-cli": "^0.2.1",
+    "jsdom": "^1.4.1",
     "mocha": "^2.0.1",
+    "object-assign": "^2.0.0",
     "superagent": "^0.21.0"
   },
   "dependencies": {
