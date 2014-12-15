@@ -24,6 +24,7 @@
     "jest-cli": "^0.2.1",
     "jsdom": "^1.4.1",
     "mocha": "^2.0.1",
+    "mocha-jsdom": "^0.2.0",
     "object-assign": "^2.0.0",
     "superagent": "^0.21.0"
   },

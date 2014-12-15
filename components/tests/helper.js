@@ -4,9 +4,7 @@ require('node-jsx').install();
 
 var jsdom = require('jsdom');
 
-global.initDOM = function() {
-  console.log('Init test dom');
-  jsdom.env(
+jsdom.env(
     '<html><body><p>Testing with JSDOM</p></body></html>',
     [],
     function (errors, window) {
@@ -16,13 +14,6 @@ global.initDOM = function() {
       global.document =  window.document;
       global.navigator = window.navigator;
     }
-  )
-}();
+)
 
-global.cleanDOM = function() {
-  console.log("Done testing, cleaning test DOM");
-  delete global.window;
-  delete global.document;
-  delete global.navigator;
-}();
 

@@ -4,7 +4,6 @@ var React = require('react');
 var Hello = require('./components/hello');
 var Repo = require('./components/repo');
 var Treemap = require('./components/treemap');
-// dummy
 var tree = {
     name: "tree",
     children: [
