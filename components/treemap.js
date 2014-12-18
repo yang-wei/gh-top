@@ -11,12 +11,13 @@ var Cell = React.createClass({
           top: this.props.top,
           width: this.props.width,
           height: this.props.height,
+          backgroundColor: this.props.cellColor,
           overflow: 'hidden',
           position: 'absolute'
         };
 
     return (
-      <div style={cellStyle} className={this.props.cellColor} >
+      <div style={cellStyle} >
         {this.props.children}
       </div>
     );
@@ -45,15 +46,7 @@ var DataSeries = React.createClass({
   render: function() {
         var value = this.props.value;
         var data = this.props.data;
-        var minStarRepo = this.getMinProp(data, 'stars');
-        var maxStarRepo = this.getMaxProp(data, 'stars');
-
-        var quantize = d3.scale.quantize()
-                          .domain(d3.range(minStarRepo.stars, maxStarRepo.stars))
-                          .range(d3.range(9).map(function(i) { 
-                            return 'q' + i + '-9';
-                          }));
-        console.log(quantize(1999));
+        var color = d3.scale.category20b();
         var treemap = d3.layout.treemap()
                         .children(function(d) { return d })
                         .size([this.props.width, this.props.height])
@@ -61,12 +54,11 @@ var DataSeries = React.createClass({
                         .value(function(d) { return d[value] }); 
 
         var maps = treemap(data).map(function(tree, i) {
-           var cellColor = quantize(tree.stars);
            return (
                   <Cell
                     left={tree.x} top={tree.y}    
                     width={tree.dx} height={tree.dy}
-                    key={i} cellColor={cellColor}> 
+                    key={i} cellColor={color(i)}> 
                   {tree.name}
                   </Cell>
                   )
