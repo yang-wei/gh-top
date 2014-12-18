@@ -2,7 +2,6 @@
 
 var React = require('react');
 var d3 = require('d3');
-var _ = require('lodash');
 
 var Cell = React.createClass({
     render: function() {
@@ -38,6 +37,7 @@ var DataSeries = React.createClass({
         var val = this.props.value;
         var color = d3.scale.category10();
         var treemap = d3.layout.treemap()
+                        .children(function(d) { return d })
                         .size([this.props.width, this.props.height])
                         .sticky(true)
                         .value(function(d) { return d[val] }); 
