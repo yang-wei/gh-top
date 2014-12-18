@@ -36,7 +36,6 @@ app.get('/api/repos', function(request, response, next){
 
 app.listen(port, function() {
   console.log("Successfully connect to port " + port);
-  /*
   var initAPI = new LatestAPI(gh_url);
   initAPI.fetchAPI(function(error, response) {
     if(error) { console.error(error); }
@@ -57,6 +56,5 @@ app.listen(port, function() {
       });
     }, interval);
   })();
-  */
 });
 

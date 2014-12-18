@@ -17,7 +17,6 @@ var tree = {
     ]
 };
 
-
 var App = React.createClass({
   render: function() {
     return (
@@ -26,7 +25,7 @@ var App = React.createClass({
           <link href='./bower_components/fontawesome/css/font-awesome.css' rel='stylesheet' />
         </head>
         <Hello text='React' />
-        <Treemap width={700} height={300} data={tree} value='size'/>
+        <Treemap width={700} height={300} data={tree.children} value='size'/>
       </html>
     );
   }
