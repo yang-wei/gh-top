@@ -11,13 +11,12 @@ var Cell = React.createClass({
           top: this.props.top,
           width: this.props.width,
           height: this.props.height,
-          background: this.props.bgColor,
           overflow: 'hidden',
           position: 'absolute'
         };
 
     return (
-      <div style={cellStyle} className='cell' >
+      <div style={cellStyle} className={this.props.cellColor} >
         {this.props.children}
       </div>
     );
@@ -25,6 +24,16 @@ var Cell = React.createClass({
 });
 
 var DataSeries = React.createClass({
+  getMaxProp: function(arr, prop) {
+    return arr.reduce(function(x, y) {
+      return x[prop] > y[prop] ? x : y;
+    });
+  },
+  getMinProp: function(arr, prop) {
+    return arr.reduce(function(x,y) {
+      return x[prop] > y[prop] ? y : x;
+    })
+  },
   getDefaultProps: function() {
     return {
       data: [],
@@ -34,20 +43,30 @@ var DataSeries = React.createClass({
     };
   },
   render: function() {
-        var val = this.props.value;
-        var color = d3.scale.category10();
+        var value = this.props.value;
+        var data = this.props.data;
+        var minStarRepo = this.getMinProp(data, 'stars');
+        var maxStarRepo = this.getMaxProp(data, 'stars');
+
+        var quantize = d3.scale.quantize()
+                          .domain(d3.range(minStarRepo.stars, maxStarRepo.stars))
+                          .range(d3.range(9).map(function(i) { 
+                            return 'q' + i + '-9';
+                          }));
+        console.log(quantize(1999));
         var treemap = d3.layout.treemap()
                         .children(function(d) { return d })
                         .size([this.props.width, this.props.height])
                         .sticky(true)
-                        .value(function(d) { return d[val] }); 
+                        .value(function(d) { return d[value] }); 
 
-        var maps = treemap(this.props.data).map(function(tree, i) {
+        var maps = treemap(data).map(function(tree, i) {
+           var cellColor = quantize(tree.stars);
            return (
                   <Cell
                     left={tree.x} top={tree.y}    
                     width={tree.dx} height={tree.dy}
-                    key={i} bgColor={color(i)}> 
+                    key={i} cellColor={cellColor}> 
                   {tree.name}
                   </Cell>
                   )
@@ -74,7 +93,7 @@ var Treemap = React.createClass({
     };
     return (
       <div style={style}>
-        <DataSeries data={this.props.data} value='size' width={this.props.width} height={this.props.height}/>
+        <DataSeries data={this.props.data} value={this.props.value} width={this.props.width} height={this.props.height}/>
       </div>
     )
   }

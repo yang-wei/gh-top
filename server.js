@@ -12,6 +12,7 @@ var app = express();
 
 app.use(bodyParser.json());
 app.use('/bower_components', express.static(__dirname + '/bower_components'));
+app.use('/public', express.static(__dirname + '/public'));
 
 var db = mongoskin.db('mongodb://@localhost:27017/repos', {safe:true});
 
@@ -19,12 +20,17 @@ var port = 5000;
 var gh_url = 'https://api.github.com/'
 
 app.get('/', function(request, response, next) {
-  var app = App();
-  ReactAsync.renderToStringAsync(app, function(err, markup) {
-    if(err) return next(err);
 
-    response.send("<!doctype html>\n" + markup );
+  db.collection('repos').find({}).toArray(function(e, results) {
+    if(e) { return next(e) }
+
+    var app = App({data: results, value: 'stars'}); 
+    ReactAsync.renderToStringAsync(app, function(err, markup) {
+      if(err) return next(err);
+      response.send("<!doctype html>\n" + markup );
+    });
   });
+
 });
 
 app.get('/api/repos', function(request, response, next){
@@ -36,6 +42,7 @@ app.get('/api/repos', function(request, response, next){
 
 app.listen(port, function() {
   console.log("Successfully connect to port " + port);
+  /*
   var initAPI = new LatestAPI(gh_url);
   initAPI.fetchAPI(function(error, response) {
     if(error) { console.error(error); }
@@ -56,5 +63,6 @@ app.listen(port, function() {
       });
     }, interval);
   })();
+  */
 });
 
