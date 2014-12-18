@@ -16,11 +16,18 @@ var App = React.createClass({
       return (
         <html>
           <head>
-            <link href='./bower_components/fontawesome/css/font-awesome.css' rel='stylesheet' />
             <link href='./public/style.css' rel='stylesheet' />
           </head>
-          <Hello text='React' />
-          <Treemap width={1000} height={600} data={this.props.data} value={this.props.value} />
+          <body>
+            <header>
+              <h1>Github Repository in Treemap</h1>
+            </header>
+            <div className='treemap-container'>
+              <Treemap width={960} height={500} 
+                      data={this.props.data} 
+                      value={this.props.value} />
+            </div>
+          </body>
         </html>
       );
     }

@@ -17,7 +17,7 @@ var Cell = React.createClass({
         };
 
     return (
-      <div style={cellStyle} >
+      <div style={cellStyle} className='cell' >
         {this.props.children}
       </div>
     );
@@ -25,16 +25,6 @@ var Cell = React.createClass({
 });
 
 var DataSeries = React.createClass({
-  getMaxProp: function(arr, prop) {
-    return arr.reduce(function(x, y) {
-      return x[prop] > y[prop] ? x : y;
-    });
-  },
-  getMinProp: function(arr, prop) {
-    return arr.reduce(function(x,y) {
-      return x[prop] > y[prop] ? y : x;
-    })
-  },
   getDefaultProps: function() {
     return {
       data: [],
@@ -59,7 +49,7 @@ var DataSeries = React.createClass({
                     left={tree.x} top={tree.y}    
                     width={tree.dx} height={tree.dy}
                     key={i} cellColor={color(i)}> 
-                  {tree.name}
+                    <a href={tree.url} target='_blank'>{tree.name}</a>
                   </Cell>
                   )
         });
