@@ -63,10 +63,10 @@ var DataSeries = React.createClass({
 var Treemap = React.createClass({
   getDefaultProps: function() {
     return {
-      data: [], 
+      data: [],
       width: '600',
       height: '300',
-      value: ''
+      value: 'stars'
     }
   },
   render: function() {
