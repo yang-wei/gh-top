@@ -1,8 +1,6 @@
 'use strict';
 
 var React = require('react');
-var Hello = require('./components/hello');
-var Repo = require('./components/repo');
 var Treemap = require('./components/treemap');
 
 var App = React.createClass({
@@ -27,6 +25,7 @@ var App = React.createClass({
                       data={this.props.data} 
                       value={this.props.value} />
             </div>
+            <script src='./public/bundle.js'></script>
           </body>
         </html>
       );
@@ -37,6 +36,6 @@ module.exports = App;
 
 if (typeof window !== 'undefined') {
   window.onload = function() {
-   React.render(App(), document);
+   React.render(<App />, document);
   }
 }

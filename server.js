@@ -27,7 +27,7 @@ app.get('/', function(request, response, next) {
     var app = App({data: results, value: 'stars'}); 
     ReactAsync.renderToStringAsync(app, function(err, markup) {
       if(err) return next(err);
-      response.send("<!doctype html>\n" + markup );
+      response.send(markup);
     });
   });
 

@@ -6,11 +6,15 @@
   "scripts": {
     "test": "npm run test-server & npm run test-comp",
     "test-server": "./node_modules/.bin/mocha --reporter list",
-    "test-comp": "./node_modules/.bin/mocha -R spec --compilers jsx:components/tests/helper.js components/tests/*test.js"
+    "test-comp": "./node_modules/.bin/mocha -R spec --compilers jsx:components/tests/helper.js components/tests/*test.js",
+    "build": "browserify -t reactify client.js -o public/bundle.js",
+    "server": "nodemon server.js",
+    "start": "npm run build && npm run server"
   },
-   "author": "",
+  "author": "",
   "license": "ISC",
   "devDependencies": {
+    "browserify": "^7.0.3",
     "expect.js": "^0.3.1",
     "jsdom": "^1.4.1",
     "mocha": "^2.0.1",
