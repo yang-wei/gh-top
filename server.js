@@ -5,6 +5,7 @@ var express =require('express'),
     LatestAPI = require('./getGithubApi'),
     ReactAsync = require('react-async'),
     nodejsx = require('node-jsx').install(),
+    database = require('./database'),
     App = require('./client')
     ;
 
@@ -20,24 +21,16 @@ var port = 5000;
 var gh_url = 'https://api.github.com/'
 
 app.get('/', function(request, response, next) {
-
-  db.collection('repos').find({}).toArray(function(e, results) {
-    if(e) { return next(e) }
-
-    var app = App({data: results, value: 'stars'}); 
-    ReactAsync.renderToStringAsync(app, function(err, markup) {
+    ReactAsync.renderToStringAsync(App(), function(err, markup) {
       if(err) return next(err);
       response.send(markup);
     });
-  });
-
 });
 
 app.get('/api/repos', function(request, response, next){
-  db.collection('repos').find({}).toArray(function(e, results){
-    if(e) return next(e);
+  database(function(results) {
     response.json(results);
-  }) 
+  });
 });
 
 app.listen(port, function() {
