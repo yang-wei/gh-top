@@ -7,25 +7,31 @@ var Treemap = require('./components/treemap');
 var superagent = require('superagent');
 
 var App = React.createClass({displayName: 'App',
-    getInitialState: function() {
-      return { repos: [] }
+
+    getInitialState: function(cb) {
+      return {
+        repos: []
+      } 
     },
 
     componentWillMount: function() {
-        //this.loadRepos();
-    },
-
-    componentDidMount: function() {
+      // ReferenceError: document is not defined
       //this.loadRepos();
     },
 
-    loadRepos: function() {
+    componentDidMount: function() {
+      this.loadRepos();
+    },
+
+    loadRepos: function(cb) {
       superagent
         .get('http://localhost:5000/api/repos')
         .set({'Access-Control-Allow-Origin': '*'})
         .end(function(err, res) {
           if(err) console.log(err);
-          this.setState({ repos: res.body }); 
+            if(res && res.body) {
+            this.setState({ repos: res.body }); 
+          }
         }.bind(this));
     },
 
