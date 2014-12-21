@@ -1,13 +1,14 @@
 var request = require('request'),
+async = require('async'),
 filterJSON = require('./filterJSON'),
 updateDb = require('./updateDb');
 
-function LatestAPI(url) {
-   this.GH_API_ROOT = url + 'search/repositories?q=language:javascript&sort=stars&per_page=100';
+
+function LatestAPI() {
    this.options = {
     //url: this.GH_API_ROOT, 
     headers: {
-      'User-Agent': 'nodejs',
+      'User-Agent': 'yang-wei',
       'Content-type': 'application/json',
       'Accept': 'application/vnd.github.v3+json'
     }
@@ -29,24 +30,45 @@ LatestAPI.prototype.fetchAPI = function(callback) {
       language: 'language'
     }; 
 
-    var result = '';
+    function query(language) {
+      return 'search/repositories?q=language:' + language + '&sort=stars&per_page=100';
+    }
 
-    request
-      .get(this.GH_API_ROOT, this.options)
-      .on('error', function(err) {
-        callback(err);
+    var languages = ['javascript', 'ruby', 'php'];
+    var gh_url = 'https://api.github.com/'
+    var result = '', endpoint = '';
+    var completed_request = 0;
+
+   function makeRequest(lang, cb) {
+      var chunk;
+      endpoint = gh_url + query(lang);
+      request({
+        method: 'GET',
+        uri: endpoint,
+        headers: {
+          'User-Agent': 'yang-wei',
+          'Content-type': 'application/json',
+          'Accept': 'application/vnd.github.v3+json'
+        }
+      }, function(err, response, body) {
+        if(err) {
+          console.log(err)
+        } else {
+          var data = JSON.parse(body);
+          var items = filterJSON(data.items, pickJSON);
+          cb(err, items);
+        }
       })
-      .on('response', function(response) {
-        callback(response.statusCode);
-      })
-      .on('data', function(chunk) {
-        result += chunk;
-      })
-      .on('end', function() {
-        var data = JSON.parse(result);
-        var items = filterJSON(data.items, pickJSON);
-        updateDb(items, console.log);
-      });
+     }
+
+    async.map(languages, makeRequest, function(err, results) {
+     if(err) console.log(err); 
+     var repos = [];
+     var allRepos = results.reduce(function(x,y) {
+        return x.concat(y); 
+     });
+      updateDb(allRepos, console.log);
+    });
 
 }
 

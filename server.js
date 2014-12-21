@@ -18,7 +18,6 @@ app.use('/public', express.static(__dirname + '/public'));
 var db = mongoskin.db('mongodb://@localhost:27017/repos', {safe:true});
 
 var port = 5000;
-var gh_url = 'https://api.github.com/'
 
 app.get('/', function(request, response, next) {
     ReactAsync.renderToStringAsync(App(), function(err, markup) {
@@ -35,8 +34,7 @@ app.get('/api/repos', function(request, response, next){
 
 app.listen(port, function() {
   console.log("Successfully connect to port " + port);
-  /*
-  var initAPI = new LatestAPI(gh_url);
+  var initAPI = new LatestAPI();
   initAPI.fetchAPI(function(error, response) {
     if(error) { console.error(error); }
     if(response) {
@@ -44,7 +42,7 @@ app.listen(port, function() {
     }
   });
 
-  var API = new LatestAPI(gh_url);
+  var API = new LatestAPI();
   // set interval to an hour
   var interval = 3600*1000;
   (function schedule() {
@@ -56,6 +54,5 @@ app.listen(port, function() {
       });
     }, interval);
   })();
-  */
 });
 
