@@ -6,7 +6,7 @@ module.exports = function(cb, lang) {
   if(lang) {
     query.language = lang; 
   }
-  db.collection('repos').find(query).toArray(function(e, results) {
+  db.collection('repos').find(query).sort({stars: -1}).limit(100).toArray(function(e, results) {
     if(e) console.log(e);
     cb(results);
   })
