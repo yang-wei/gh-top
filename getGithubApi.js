@@ -33,8 +33,8 @@ LatestAPI.prototype.fetchAPI = function(callback) {
     function query(language) {
       return 'search/repositories?q=language:' + language + '&sort=stars&per_page=100';
     }
-
-    var languages = ['javascript', 'ruby', 'php'];
+    // top 15 on githut.info on Dec 2014
+    var languages = ['javascript', 'java', 'css', 'python', 'ruby', 'php', 'c++', 'c', 'shell', 'c#', 'objective-c', 'R', 'vimL', 'go', 'perl', 'coffeescript'];
     var gh_url = 'https://api.github.com/'
     var result = '', endpoint = '';
     var completed_request = 0;
@@ -54,6 +54,7 @@ LatestAPI.prototype.fetchAPI = function(callback) {
         if(err) {
           console.log(err)
         } else {
+          // blocking
           var data = JSON.parse(body);
           var items = filterJSON(data.items, pickJSON);
           cb(err, items);
