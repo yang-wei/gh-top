@@ -32,8 +32,15 @@ app.get('/api/repos', function(request, response, next){
   });
 });
 
+app.get('/api/repos/:lang', function(request, response, next){
+  database(function(results) {
+    response.json(results);
+  }, request.params.lang);
+});
+
 app.listen(port, function() {
   console.log("Successfully connect to port " + port);
+  /*
   var initAPI = new LatestAPI();
   initAPI.fetchAPI(function(error, response) {
     if(error) { console.error(error); }
@@ -54,5 +61,6 @@ app.listen(port, function() {
       });
     }, interval);
   })();
+  */
 });
 
