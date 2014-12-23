@@ -26,16 +26,12 @@ app.get('/', function(request, response, next) {
     });
 });
 
-app.get('/api/repos', function(request, response, next){
-  database(function(results) {
-    response.json(results);
-  });
-});
-
 app.get('/api/repos/:lang', function(request, response, next){
+  var language = request.params.lang;
+  language = language == 'All' ? undefined : language;
   database(function(results) {
     response.json(results);
-  }, request.params.lang);
+  }, language);
 });
 
 app.listen(port, function() {
