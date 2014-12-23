@@ -2,9 +2,15 @@
 
 var React = require('react');
 var Treemap = require('./components/treemap');
+var LanguageBar = require('./components/languageBar');
 var superagent = require('superagent');
 
 var App = React.createClass({
+    getDefaultProps: function() {
+      return {
+        lang: ''
+      }
+    },
 
     getInitialState: function(cb) {
       return {
@@ -17,13 +23,18 @@ var App = React.createClass({
       //this.loadRepos();
     },
 
+    componentWillReceiveProps: function(nextProps) {
+      this.loadRepos(nextProps.lang)
+    },
+
     componentDidMount: function() {
       this.loadRepos();
     },
 
-    loadRepos: function(cb) {
+    loadRepos: function(lang) {
+      lang = lang || '';
       superagent
-        .get('http://localhost:5000/api/repos')
+        .get('http://localhost:5000/api/repos/' + lang)
         .set({'Access-Control-Allow-Origin': '*'})
         .end(function(err, res) {
           if(err) console.log(err);
@@ -31,6 +42,10 @@ var App = React.createClass({
             this.setState({ repos: res.body }); 
           }
         }.bind(this));
+    },
+
+    changeLang: function(lang) {
+      this.loadRepos(lang);
     },
 
     render: function() {
@@ -42,7 +57,7 @@ var App = React.createClass({
           <body>
             <header>
               <h1>Github Repository in Treemap</h1>
-              <button onClick={this.loadRepos}>Load Data</button>
+              <LanguageBar changeLang={this.changeLang} />
             </header>
             <div className='treemap-container'>
               <Treemap data={this.state.repos} value='stars' width={960} height={500} />
