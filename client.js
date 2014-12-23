@@ -8,7 +8,7 @@ var superagent = require('superagent');
 var App = React.createClass({
     getDefaultProps: function() {
       return {
-        lang: ''
+        lang: 'All'
       }
     },
 
@@ -23,16 +23,12 @@ var App = React.createClass({
       //this.loadRepos();
     },
 
-    componentWillReceiveProps: function(nextProps) {
-      this.loadRepos(nextProps.lang)
-    },
-
     componentDidMount: function() {
       this.loadRepos();
     },
 
     loadRepos: function(lang) {
-      lang = lang || '';
+      lang = lang || 'All';
       superagent
         .get('http://localhost:5000/api/repos/' + lang)
         .set({'Access-Control-Allow-Origin': '*'})
