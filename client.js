@@ -53,11 +53,11 @@ var App = React.createClass({
           <body>
             <header>
               <h1>Github Repository in Treemap</h1>
-              <LanguageBar changeLang={this.changeLang} />
             </header>
             <div className='treemap-container'>
               <Treemap data={this.state.repos} value='stars' width={960} height={500} />
             </div>
+            <LanguageBar changeLang={this.changeLang} />
             <script src='./public/bundle.js'></script>
           </body>
         </html>

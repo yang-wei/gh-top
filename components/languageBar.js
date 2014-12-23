@@ -8,14 +8,14 @@ module.exports = React.createClass({
     }
   },     
   render: function() {
-    var languages = ['All', 'JavaScript', 'PHP', 'Ruby']; 
+    var languages = require('../languages');
     var options = languages.map(function(lang, i) { 
       return (
         <li key={i} lang={lang}><a href='#' >{lang}</a></li>
       )
     }.bind(this));
     return (
-      <ul onClick={this.handleChange}>
+      <ul className='language-bar' onClick={this.handleChange}>
         {options}
       </ul>
     ) 

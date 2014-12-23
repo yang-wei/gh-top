@@ -1,4 +1,5 @@
 var request = require('request'),
+languages = require('./languages'),
 async = require('async'),
 filterJSON = require('./filterJSON'),
 updateDb = require('./updateDb');
@@ -34,7 +35,6 @@ LatestAPI.prototype.fetchAPI = function(callback) {
       return 'search/repositories?q=language:' + language + '&sort=stars&per_page=100';
     }
     // top 15 on githut.info on Dec 2014
-    var languages = ['javascript', 'java', 'css', 'python', 'ruby', 'php', 'c++', 'c', 'shell', 'c#', 'objective-c', 'R', 'vimL', 'go', 'perl', 'coffeescript'];
     var gh_url = 'https://api.github.com/'
     var result = '', endpoint = '';
     var completed_request = 0;
