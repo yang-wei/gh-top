@@ -1,8 +1,8 @@
 var mongoskin = require('mongoskin');
 var db = mongoskin.db('mongodb://@localhost:27017/repos', {safe:true});
-var query = {};
 
 module.exports = function(cb, lang) {
+  var query = {};
   if(lang) {
     query.language = lang; 
   }
