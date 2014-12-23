@@ -8,11 +8,28 @@ h1 {
   color: #333;
 }
 
+.language-bar {
+  text-align: center;
+  position: relative;
+}
+
+li {
+  list-style-type: none;
+  display: inline;
+  padding: 5px;
+}
+
+li > a {
+  text-decoration: none;
+  color: #393b79
+}
+
 .treemap-container {
   margin-top: 10px;
   margin-left: auto;
   margin-right: auto;
   max-width: 960px;
+  height: 500px;
 }
 
 .cell {
