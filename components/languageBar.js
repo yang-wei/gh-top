@@ -3,7 +3,9 @@ var React = require('react');
 
 module.exports = React.createClass({
   handleChange: function(e) {
-    this.props.changeLang(e.target.textContent);
+    if(e.target && e.target.nodeName === 'A') {
+      this.props.changeLang(e.target.textContent);
+    }
   },     
   render: function() {
     var languages = ['All', 'JavaScript', 'PHP', 'Ruby']; 
