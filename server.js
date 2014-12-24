@@ -15,9 +15,8 @@ app.use(bodyParser.json());
 app.use('/bower_components', express.static(__dirname + '/bower_components'));
 app.use('/public', express.static(__dirname + '/public'));
 
-var db = mongoskin.db('mongodb://@localhost:27017/repos', {safe:true});
-
-var port = 5000;
+var ip = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
+var port = process.env.OPENSHIFT_NODEJS_PORT || 5000;
 
 app.get('/', function(request, response, next) {
     ReactAsync.renderToStringAsync(App(), function(err, markup) {
@@ -25,7 +24,13 @@ app.get('/', function(request, response, next) {
       response.send(markup);
     });
 });
-
+/*
+app.use(function(request, response, next) {
+  response.header('Access-Control-Allow-Origin', '*');
+  response.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  next();
+});  
+*/
 app.get('/api/repos/:lang', function(request, response, next){
   var language = request.params.lang;
   language = language == 'All' ? undefined : language;
@@ -34,7 +39,7 @@ app.get('/api/repos/:lang', function(request, response, next){
   }, language);
 });
 
-app.listen(port, function() {
+app.listen(port, ip, function() {
   console.log("Successfully connect to port " + port);
   /*
   var initAPI = new LatestAPI();

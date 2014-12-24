@@ -4,6 +4,8 @@ var React = require('react');
 var Treemap = require('./components/treemap');
 var LanguageBar = require('./components/languageBar');
 var superagent = require('superagent');
+var ip = process.env.OPENSHIFT_NODEJS_IP || 'localhost';
+var port = process.env.OPENSHIFT_NODEJS_PORT || 5000;
 
 var App = React.createClass({
     getDefaultProps: function() {
@@ -30,7 +32,7 @@ var App = React.createClass({
     loadRepos: function(lang) {
       lang = lang || 'All';
       superagent
-        .get('http://localhost:5000/api/repos/' + lang)
+        .get('http://' + ip + ':' + port + '/api/repos/' + lang)
         .set({'Access-Control-Allow-Origin': '*'})
         .end(function(err, res) {
           if(err) console.log(err);

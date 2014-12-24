@@ -1,5 +1,10 @@
 var mongoskin = require('mongoskin');
-var db = mongoskin.db('mongodb://@localhost:27017/repos', {safe:true});
+var collection_name = 'repos';
+var mongodb_connection_string = 'mongodb://@localhost:27017/' + collection_name;
+if(process.env.OPENSHIFT_MONGODB_DB_URL) {
+  mongodb_connection_string = process.env.OPENSHIFT_MONGODB_DB_URL + collection_name;
+}
+var db = mongoskin.db(mongodb_connection_string, {safe:true});
 
 module.exports = function(cb, lang) {
   var query = {};
