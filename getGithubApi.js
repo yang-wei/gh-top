@@ -1,5 +1,5 @@
 var request = require('request'),
-languages = require('./languages'),
+languages = require('./languages').slice(1, 6),
 async = require('async'),
 filterJSON = require('./filterJson'),
 updateDb = require('./updateDb');
@@ -56,6 +56,7 @@ LatestAPI.prototype.fetchAPI = function(callback) {
         } else {
           // blocking
           var data = JSON.parse(body);
+          console.log(data.items);
           var items = filterJSON(data.items, pickJSON);
           cb(err, items);
         }
