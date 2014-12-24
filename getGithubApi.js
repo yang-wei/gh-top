@@ -56,7 +56,6 @@ LatestAPI.prototype.fetchAPI = function(callback) {
         } else {
           // blocking
           var data = JSON.parse(body);
-          console.log(data.items);
           var items = filterJSON(data.items, pickJSON);
           cb(err, items);
         }

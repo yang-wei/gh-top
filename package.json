@@ -2,7 +2,7 @@
   "name": "gh-star",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "npm run test-server & npm run test-comp",
     "test-server": "./node_modules/.bin/mocha --reporter list",
