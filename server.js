@@ -41,7 +41,6 @@ app.get('/api/repos/:lang', function(request, response, next){
 
 app.listen(port, ip, function() {
   console.log("Successfully connect to port " + port);
-  /*
   var initAPI = new LatestAPI();
   initAPI.fetchAPI(function(error, response) {
     if(error) { console.error(error); }
@@ -62,6 +61,5 @@ app.listen(port, ip, function() {
       });
     }, interval);
   })();
-  */
 });
 
