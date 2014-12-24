@@ -8,8 +8,6 @@ if(process.env.OPENSHIFT_MONGODB_DB_URL) {
 }
 var db = mongoskin.db(mongodb_connection_string, {safe:true});
 
-module.exports = updateDb;
-
 function updateDb(items, callback) {
   db.collection('repos').remove({}, function(e, nRemoved) {
     var oldItemNum = nRemoved;
@@ -20,3 +18,4 @@ function updateDb(items, callback) {
   });
 }
 
+module.exports = updateDb;
