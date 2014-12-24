@@ -20,8 +20,7 @@
     "expect.js": "^0.3.1",
     "jsdom": "^1.4.1",
     "mocha": "^2.0.1",
-    "object-assign": "^2.0.0",
-    "superagent": "^0.21.0"
+    "object-assign": "^2.0.0"
   },
   "dependencies": {
     "async": "^0.9.0",
@@ -35,6 +34,7 @@
     "react": "^0.12.1",
     "react-async": "^2.0.1",
     "reactify": "^0.17.1",
+    "superagent": "^0.21.0",
     "request": "^2.51.0"
   }
 }
