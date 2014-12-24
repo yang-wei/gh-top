@@ -10,10 +10,10 @@
     "build": "browserify -t reactify client.js -o public/bundle.js",
     "server": "nodemon server.js",
     "server:pro": "forever start server.js",
-    "start": "npm run build && npm run server",
-    "start:pro": "npm run build && npm run server:pro"
+    "start:pro": "npm run build && npm run server",
+    "start": "npm run build && npm run server:pro"
   },
-  "author": "",
+  "author": "yang-wei",
   "license": "ISC",
   "devDependencies": {
     "browserify": "^7.0.3",
