@@ -12,7 +12,6 @@ var express =require('express'),
 var app = express();
 
 app.use(bodyParser.json());
-app.use('/bower_components', express.static(__dirname + '/bower_components'));
 app.use('/public', express.static(__dirname + '/public'));
 
 var ip = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';

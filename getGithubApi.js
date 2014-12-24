@@ -2,7 +2,7 @@ var request = require('request'),
 languages = require('./languages').slice(1, 6),
 async = require('async'),
 filterJSON = require('./filterJson'),
-updateDb = require('./updateDB');
+updateDb = require('./updateDb');
 
 
 function LatestAPI() {
