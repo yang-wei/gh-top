@@ -9,7 +9,9 @@
     "test-comp": "./node_modules/.bin/mocha -R spec --compilers jsx:components/tests/helper.js components/tests/*test.js",
     "build": "browserify -t reactify client.js -o public/bundle.js",
     "server": "nodemon server.js",
-    "start": "npm run build && npm run server"
+    "server:pro": "forever start server.js",
+    "start": "npm run build && npm run server",
+    "start:pro": "npm run build && npm run server:pro"
   },
   "author": "",
   "license": "ISC",
@@ -27,6 +29,7 @@
     "d3": "^3.4.13",
     "express": "^4.10.2",
     "fibers": "^1.0.2",
+    "forever": "^0.13.0",
     "mongoskin": "^1.4.4",
     "node-jsx": "^0.12.4",
     "react": "^0.12.1",
