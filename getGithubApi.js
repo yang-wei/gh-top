@@ -1,7 +1,7 @@
 var request = require('request'),
 languages = require('./languages'),
 async = require('async'),
-filterJSON = require('./filterJSON'),
+filterJSON = require('./filterJson'),
 updateDb = require('./updateDb');
 
 
