@@ -2,7 +2,7 @@ var mongoskin = require('mongoskin');
 var collection_name = 'repos';
 var mongodb_connection_string = 'mongodb://@localhost:27017/' + collection_name;
 if(process.env.OPENSHIFT_MONGODB_DB_URL) {
-  mongodb_connection_string = 'mongodb://' + process.env.OPENSHIFT_MONGODB_DB_USERNAME + ':' + process.env.OPENSHIFT_MONGODB_DB_PASSWORD + '@'  + process.env.OPENSHIFT_MONGODB_DB_URL + '/' + process.env.OPENSHIFT_APP_NAME;
+  mongodb_connection_string = process.env.OPENSHIFT_MONGODB_DB_URL + '/' + process.env.OPENSHIFT_MONGODB_DB_USERNAME;
 }
 var db = mongoskin.db(mongodb_connection_string, {safe:true});
 
