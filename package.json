@@ -33,6 +33,7 @@
     "mongoskin": "^1.4.4",
     "node-jsx": "^0.12.4",
     "react": "^0.12.1",
-    "react-async": "^2.0.1"
+    "react-async": "^2.0.1",
+    "request": "^2.51.0"
   }
 }
