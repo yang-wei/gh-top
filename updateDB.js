@@ -13,6 +13,7 @@ function updateDb(items, callback) {
     var oldItemNum = nRemoved;
     if(e) callback(e.messages);
     db.collection('repos').insert(items, {}, function(e, newItem) {
+      if(e) { console.log(e) }
       callback("Deleted " + oldItemNum + " item and inserted " + newItem.length + " repos at " + new Date());
     });
   });
