@@ -2,39 +2,47 @@
   "name": "gh-star",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yang-wei/gh-top"
+  },
+  "keywords": [
+    "github",
+    "star",
+    "treemap"
+  ],
   "scripts": {
     "test": "npm run test-server & npm run test-comp",
     "test-server": "./node_modules/.bin/mocha --reporter list",
     "test-comp": "./node_modules/.bin/mocha -R spec --compilers jsx:components/tests/helper.js components/tests/*test.js",
     "build": "browserify -t reactify client.js -o public/bundle.js",
     "server": "nodemon server.js",
-    "server:pro": "forever start server.js",
+    "server:pro": "supervisor server.js",
     "start:pro": "npm run build && npm run server",
     "start": "npm run build && npm run server:pro"
   },
+  "main": "server.js",
   "author": "yang-wei",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
-    "browserify": "^7.0.3",
     "expect.js": "^0.3.1",
     "jsdom": "^1.4.1",
-    "mocha": "^2.0.1",
-    "object-assign": "^2.0.0"
+    "mocha": "^2.0.1"
   },
   "dependencies": {
     "async": "^0.9.0",
     "body-parser": "^1.9.2",
+    "browserify": "^7.0.3",
     "d3": "^3.4.13",
     "express": "^4.10.2",
     "fibers": "^1.0.2",
-    "forever": "^0.13.0",
     "mongoskin": "^1.4.4",
     "node-jsx": "^0.12.4",
     "react": "^0.12.1",
     "react-async": "^2.0.1",
     "reactify": "^0.17.1",
+    "request": "^2.51.0",
     "superagent": "^0.21.0",
-    "request": "^2.51.0"
+    "supervisor": "^0.6.0"
   }
 }
