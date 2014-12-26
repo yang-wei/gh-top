@@ -16,10 +16,10 @@
     "test-server": "./node_modules/.bin/mocha --reporter list",
     "test-comp": "./node_modules/.bin/mocha -R spec --compilers jsx:components/tests/helper.js components/tests/*test.js",
     "build": "browserify -t reactify client.js -o public/bundle.js",
-    "server": "nodemon server.js",
-    "server:pro": "supervisor server.js",
-    "start:pro": "npm run build && npm run server",
-    "start": "npm run build && npm run server:pro"
+    "server:dev": "nodemon server.js",
+    "server": "supervisor server.js",
+    "start:dev": "export NODE_ENV=development && npm run build && npm run server:dev",
+    "start": "export NODE_ENV=production && npm run build && npm run server"
   },
   "main": "server.js",
   "engines": {

@@ -4,8 +4,7 @@ var React = require('react');
 var Treemap = require('./components/treemap');
 var LanguageBar = require('./components/languageBar');
 var superagent = require('superagent');
-var local = 'localhost:5000';
-var rhcloud = 'ghtop-ghstar.rhcloud.com';
+var API_ENDPOINT = require('./config').API_ENDPOINT;
 
 var App = React.createClass({
     getDefaultProps: function() {
@@ -32,7 +31,7 @@ var App = React.createClass({
     loadRepos: function(lang) {
       lang = lang || 'All';
       superagent
-        .get('http://' + rhcloud + ':' + '/api/repos/' + lang)
+        .get('http://' + API_ENDPOINT + '/api/repos/' + lang)
         .set({'Access-Control-Allow-Origin': '*'})
         .end(function(err, res) {
           if(err) console.log(err);
