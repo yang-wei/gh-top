@@ -6,7 +6,6 @@ var express =require('express'),
     ReactAsync = require('react-async'),
     nodejsx = require('node-jsx').install(),
     database = require('./database'),
-    config = require('./config'),
     App = require('./client')
     ;
 
@@ -40,7 +39,7 @@ app.get('/api/repos/:lang', function(request, response, next){
 });
 
 app.listen(port, ip, function() {
-  console.log("Successfully connect to port " + port + " at  " + config.mode + " mode");
+  console.log("Successfully connect to port " + port);
   /*
   var initAPI = new LatestAPI();
   initAPI.fetchAPI(function(error, response) {
