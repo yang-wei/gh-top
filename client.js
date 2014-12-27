@@ -4,8 +4,6 @@ var React = require('react');
 var Treemap = require('./components/treemap');
 var LanguageBar = require('./components/languageBar');
 var superagent = require('superagent');
-var API_ENDPOINT = require('./config').API_ENDPOINT;
-
 var App = React.createClass({
     getDefaultProps: function() {
       return {
@@ -31,8 +29,7 @@ var App = React.createClass({
     loadRepos: function(lang) {
       lang = lang || 'All';
       superagent
-        .get('http://' + API_ENDPOINT + '/api/repos/' + lang)
-        .set({'Access-Control-Allow-Origin': '*'})
+        .get('/api/repos/' + lang)
         .end(function(err, res) {
           if(err) console.log(err);
             if(res && res.body) {

@@ -41,6 +41,7 @@ app.get('/api/repos/:lang', function(request, response, next){
 
 app.listen(port, ip, function() {
   console.log("Successfully connect to port " + port + " at  " + config.mode + " mode");
+  /*
   var initAPI = new LatestAPI();
   initAPI.fetchAPI(function(error, response) {
     if(error) { console.error(error); }
@@ -48,7 +49,7 @@ app.listen(port, ip, function() {
       console.log("Data initialization done.") 
     }
   });
-
+  */
   var API = new LatestAPI();
   // set interval to an hour
   var interval = 3600*1000;
