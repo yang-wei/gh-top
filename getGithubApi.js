@@ -1,5 +1,5 @@
 var request = require('request'),
-languages = require('./languages').slice(1, 6),
+languages = require('./languages').slice(1),
 async = require('async'),
 filterJSON = require('./filterJson'),
 updateDb = require('./updateDB');
@@ -41,7 +41,9 @@ LatestAPI.prototype.fetchAPI = function(callback) {
 
    function makeRequest(lang, cb) {
       var chunk;
-      endpoint = gh_url + query(lang);
+      endpoint = gh_url + query(lang.search);
+      setTimeout(function() {
+      
       request({
         method: 'GET',
         uri: endpoint,
@@ -54,15 +56,21 @@ LatestAPI.prototype.fetchAPI = function(callback) {
         if(err) {
           console.log(err)
         } else {
-          // blocking
+          // TODO: blocking code
           var data = JSON.parse(body);
           var items = filterJSON(data.items, pickJSON);
+          /*  
+           * Github Search Api Rate Limit is 5 requests per minute
+           * https://developer.github.com/v3/search/#rate-limit 
+          */
           cb(err, items);
         }
       })
+
+      }, 13000)
      }
 
-    async.map(languages, makeRequest, function(err, results) {
+    async.mapSeries(languages, makeRequest, function(err, results) {
      if(err) console.log(err); 
      var repos = [];
      var allRepos = results.reduce(function(x,y) {
