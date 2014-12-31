@@ -13,11 +13,11 @@
   ],
   "scripts": {
     "test": "npm run test-server & npm run test-comp",
-    "test-server": "./node_modules/.bin/mocha --reporter list",
-    "test-comp": "./node_modules/.bin/mocha -R spec --compilers jsx:components/tests/helper.js components/tests/*test.js",
-    "build": "browserify -t reactify client.js -o public/bundle.js",
-    "server:dev": "nodemon server.js",
-    "server": "supervisor server.js",
+    "test-server": "./node_modules/.bin/mocha --reporter list server/test",
+    "test-comp": "./node_modules/.bin/mocha -R spec --compilers jsx:client/components/tests/helper.js client/components/tests/*test.js",
+    "build": "browserify -t reactify client/client.js -o public/bundle.js",
+    "server:dev": "nodemon server/server.js",
+    "server": "supervisor server/server.js",
     "start:dev": "export NODE_ENV=development && npm run build && npm run server:dev",
     "start": "export NODE_ENV=production && npm run build && npm run server"
   },

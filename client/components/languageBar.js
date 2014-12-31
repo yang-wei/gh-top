@@ -1,5 +1,6 @@
 'use strict';
 var React = require('react');
+var languages = require('../../server/languages');
 
 module.exports = React.createClass({
   handleChange: function(e) {
@@ -9,7 +10,6 @@ module.exports = React.createClass({
     }
   },     
   render: function() {
-    var languages = require('../languages');
     var options = languages.map(function(lang, i) { 
       return (
         <li key={i} lang={lang.search}><a href='#' >{lang.label}</a></li>

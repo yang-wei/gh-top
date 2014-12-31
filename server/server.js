@@ -1,18 +1,19 @@
 'use strict';
 var express =require('express'),
+    path = require('path'),
     mongoskin = require('mongoskin'),
     bodyParser = require('body-parser'),
     LatestAPI = require('./getGithubApi'),
     ReactAsync = require('react-async'),
     nodejsx = require('node-jsx').install(),
     database = require('./database'),
-    App = require('./client')
+    App = require('../client/client')
     ;
 
 var app = express();
 
 app.use(bodyParser.json());
-app.use('/public', express.static(__dirname + '/public'));
+app.use('/public', express.static(__dirname + '/../public'));
 
 var ip = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
 var port = process.env.OPENSHIFT_NODEJS_PORT || 5000;
