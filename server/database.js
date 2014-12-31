@@ -1,6 +1,5 @@
 var mongoskin = require('mongoskin');
-var collection_name = 'repos';
-var mongodb_connection_string = 'mongodb://@localhost:27017/' + collection_name;
+var mongodb_connection_string = 'mongodb://@localhost:27017/repos';
 if(process.env.OPENSHIFT_MONGODB_DB_URL) {
   mongodb_connection_string = process.env.OPENSHIFT_MONGODB_DB_URL + '/' + process.env.OPENSHIFT_MONGODB_DB_USERNAME;
 }
