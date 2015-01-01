@@ -7,7 +7,8 @@ var superagent = require('superagent');
 var App = React.createClass({
     getInitialState: function(cb) {
       return {
-        lang: 'All'
+        lang: 'All',
+        data: []
       } 
     },
     
