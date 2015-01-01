@@ -1,6 +1,7 @@
 'use strict';
-var React = require('react');
+var React = require('react/addons');
 var languages = require('../../server/languages');
+var cx = React.addons.classSet;
 
 module.exports = React.createClass({
   getDefaultProps: function() {
@@ -21,8 +22,11 @@ module.exports = React.createClass({
   },     
   render: function() {
     var options = languages.map(function(lang, i) { 
+      var isActive = cx({
+        'active': lang.label === this.props.lang
+      });
       return (
-        <li key={i} lang={lang.search}><a href='#' >{lang.label}</a></li>
+        <li key={i} lang={lang.search}><a href='#' className={isActive} >{lang.label}</a></li>
       )
     }.bind(this));
     return (
