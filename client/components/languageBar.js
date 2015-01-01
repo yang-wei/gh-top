@@ -3,6 +3,16 @@ var React = require('react');
 var languages = require('../../server/languages');
 
 module.exports = React.createClass({
+  getDefaultProps: function() {
+    return {
+      lang: 'All'
+    }
+  },
+
+  componentWillReceiveProps: function(props) {
+    // do something
+  },
+
   handleChange: function(e) {
     if(e.target && e.target.nodeName === 'A') {
       var lang = encodeURIComponent(e.target.textContent);

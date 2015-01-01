@@ -2,6 +2,7 @@
 
 var React = require('react');
 var d3 = require('d3');
+var superagent = require('superagent');
 
 var Cell = React.createClass({
     render: function() {
@@ -64,12 +65,13 @@ var Treemap = React.createClass({
   getDefaultProps: function() {
     return {
       data: [],
+      lang: 'All',
       width: '600',
       height: '300',
       value: 'stars'
     }
   },
-  render: function() {
+ render: function() {
     var style = {
       position: 'relative'
     };

@@ -24,6 +24,10 @@ li > a {
   color: #393b79
 }
 
+li > a.active {
+  color: #98fb98
+}
+
 .treemap-container {
   margin-top: 10px;
   margin-left: auto;

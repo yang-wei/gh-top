@@ -5,41 +5,30 @@ var Treemap = require('./components/treemap');
 var LanguageBar = require('./components/languageBar');
 var superagent = require('superagent');
 var App = React.createClass({
-    getDefaultProps: function() {
-      return {
-        lang: 'All'
-      }
-    },
-
     getInitialState: function(cb) {
       return {
-        repos: []
+        lang: 'All'
       } 
     },
-
-    componentWillMount: function() {
-      // ReferenceError: document is not defined
-      //this.loadRepos();
-    },
-
+    
+    //TODO: use ComponentWillMount, not using because of document reference error 
     componentDidMount: function() {
       this.loadRepos();
     },
 
-    loadRepos: function(lang) {
-      lang = lang || 'All';
+    loadRepos: function() {
       superagent
-        .get('/api/repos/' + lang)
+        .get('/api/repos/' + this.state.lang)
         .end(function(err, res) {
           if(err) console.log(err);
             if(res && res.body) {
-            this.setState({ repos: res.body }); 
+            this.setState({ data: res.body }); 
           }
         }.bind(this));
     },
 
     changeLang: function(lang) {
-      this.loadRepos(lang);
+      this.setState({lang: lang}, this.loadRepos);
     },
 
     render: function() {
@@ -53,9 +42,9 @@ var App = React.createClass({
               <h1>Github Repository in Treemap</h1>
             </header>
             <div className='treemap-container'>
-              <Treemap data={this.state.repos} value='stars' width={960} height={500} />
+              <Treemap data={this.state.data} value='stars' width={960} height={500} />
             </div>
-            <LanguageBar changeLang={this.changeLang} />
+            <LanguageBar changeLang={this.changeLang} lang={this.state.lang} />
             <script src='./public/bundle.js'></script>
           </body>
         </html>
