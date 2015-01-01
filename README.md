@@ -18,6 +18,7 @@ You might find something new that you never know through *gh-star*.
 
 ###To do
  * UI Redesign
+ * Code refactoring
  * Adding more information to the visualization(tooltips etc)
  * Zoomable treemap
  * Complete Test
