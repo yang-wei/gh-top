@@ -5,7 +5,23 @@ var d3 = require('d3');
 var superagent = require('superagent');
 
 var Cell = React.createClass({
-    render: function() {
+    showStar: function() {
+    
+    },
+
+    hideStar: function() {
+    
+    },
+
+    handleMouseMove: function(e) {
+      this.showStar();
+    },
+
+    handleMouseOut: function(e) {
+      this.hideStar();
+    },
+
+   render: function() {
 
       var cellStyle = {
           left: this.props.left,
@@ -18,7 +34,10 @@ var Cell = React.createClass({
         };
 
     return (
-      <div style={cellStyle} className='cell' >
+      <div style={cellStyle} className='cell' 
+        onMouseMove={this.handleMouseMove} 
+        onMouseOut={this.handleMouseOut} 
+      >
         {this.props.children}
       </div>
     );
@@ -33,14 +52,6 @@ var DataSeries = React.createClass({
       height: '',
       value: ''
     };
-  },
-
-  handleMouseMove: function(e) {
-    console.log(e) 
-  },
-
-  handleMouseOut: function(e) {
-    console.log(e) 
   },
 
   render: function() {
@@ -58,13 +69,14 @@ var DataSeries = React.createClass({
                   <Cell
                     left={tree.x} top={tree.y}    
                     width={tree.dx} height={tree.dy}
-                    key={i} cellColor={color(i)}
+                    key={i} cellColor={color(i)} 
+                    name={tree.name}
+                    value={tree.value}
+                    owner={tree.owner}
                   > 
                     <a 
-                      onMouseMove={this.handleMouseMove} 
-                      onMouseOut={this.handleMouseOut} 
                       href={tree.url} target='_blank'>
-                      {tree.name}
+                      {tree.name} <br/> &#9733; {tree.stars}
                     </a>
                   </Cell>
                   )

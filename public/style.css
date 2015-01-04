@@ -45,7 +45,7 @@ li > a.active {
 
 .cell a {
   text-decoration: none;
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   color: rgb(255,255,255);
   background-color: rgba(254, 254, 254, 0.15);
   border-radius: 2px;
