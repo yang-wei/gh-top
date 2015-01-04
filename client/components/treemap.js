@@ -34,6 +34,15 @@ var DataSeries = React.createClass({
       value: ''
     };
   },
+
+  handleMouseMove: function(e) {
+    console.log(e) 
+  },
+
+  handleMouseOut: function(e) {
+    console.log(e) 
+  },
+
   render: function() {
         var value = this.props.value;
         var data = this.props.data;
@@ -49,11 +58,17 @@ var DataSeries = React.createClass({
                   <Cell
                     left={tree.x} top={tree.y}    
                     width={tree.dx} height={tree.dy}
-                    key={i} cellColor={color(i)}> 
-                    <a href={tree.url} target='_blank'>{tree.name}</a>
+                    key={i} cellColor={color(i)}
+                  > 
+                    <a 
+                      onMouseMove={this.handleMouseMove} 
+                      onMouseOut={this.handleMouseOut} 
+                      href={tree.url} target='_blank'>
+                      {tree.name}
+                    </a>
                   </Cell>
                   )
-        });
+        }, this);
         
         return (
           <div className='dataseries'>{maps}</div>
