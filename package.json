@@ -16,11 +16,12 @@
     "test-server": "./node_modules/.bin/mocha --reporter list server/test",
     "test-comp": "./node_modules/.bin/mocha -R spec --compilers jsx:client/components/tests/helper.js client/components/tests/*test.js",
     "build": "browserify -t reactify client/client.js -o public/bundle.js",
+    "build-min": "browserify -t reactify client/client.js | uglifyjs -o public/bundle.js",
     "watch": "watchify -t reactify client/client.js -o public/bundle.js -v",
     "server:dev": "nodemon server/server.js",
     "server": "supervisor server/server.js",
     "start:dev": "npm run watch & npm run server:dev",
-    "start": "npm run build && npm run server"
+    "start": "npm run build-min && npm run server"
   },
   "main": "server/server.js",
   "engines": {
@@ -33,6 +34,7 @@
     "expect.js": "^0.3.1",
     "jsdom": "^1.4.1",
     "mocha": "^2.0.1",
+    "uglify-js": "^2.4.16",
     "watchify": "^2.2.1"
   },
   "dependencies": {
