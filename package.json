@@ -16,12 +16,13 @@
     "test-server": "./node_modules/.bin/mocha --reporter list server/test",
     "test-comp": "./node_modules/.bin/mocha -R spec --compilers jsx:client/components/tests/helper.js client/components/tests/*test.js",
     "build": "browserify -t reactify client/client.js -o public/bundle.js",
+    "watch": "watchify -t reactify client/client.js -o public/bundle.js -v",
     "server:dev": "nodemon server/server.js",
     "server": "supervisor server/server.js",
-    "start:dev": "export NODE_ENV=development && npm run build && npm run server:dev",
-    "start": "export NODE_ENV=production && npm run build && npm run server"
+    "start:dev": "npm run watch & npm run server:dev",
+    "start": "npm run build && npm run server"
   },
-  "main": "server.js",
+  "main": "server/server.js",
   "engines": {
     "node": ">= 0.10",
     "npm": ">= 1.4"
@@ -31,7 +32,8 @@
   "devDependencies": {
     "expect.js": "^0.3.1",
     "jsdom": "^1.4.1",
-    "mocha": "^2.0.1"
+    "mocha": "^2.0.1",
+    "watchify": "^2.2.1"
   },
   "dependencies": {
     "async": "^0.9.0",
