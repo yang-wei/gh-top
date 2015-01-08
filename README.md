@@ -17,8 +17,8 @@ You might find something new that you never know through *gh-star*.
  * Hosted by [OPENSHIFT](http://www.openshift.org/)
 
 ###To do
- * UI Redesign
- * Code refactoring
- * Adding more information to the visualization(tooltips etc)
- * Zoomable treemap
- * Complete Test
+ - [] UI Redesign
+ - [] Code refactoring
+ - [] Adding more information to the visualization(tooltips etc)
+ - [] Zoomable treemap
+ - [] Complete Test
