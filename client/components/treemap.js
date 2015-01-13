@@ -5,41 +5,27 @@ var d3 = require('d3');
 var superagent = require('superagent');
 
 var Cell = React.createClass({
-    showStar: function() {
-    
-    },
-
-    hideStar: function() {
-    
-    },
-
-    handleMouseMove: function(e) {
-      this.showStar();
-    },
-
-    handleMouseOut: function(e) {
-      this.hideStar();
-    },
-
    render: function() {
-
-      var cellStyle = {
-          left: this.props.left,
-          top: this.props.top,
-          width: this.props.width,
-          height: this.props.height,
-          backgroundColor: this.props.cellColor,
-          overflow: 'hidden',
-          position: 'absolute'
-        };
-
+    var textStyle = {
+      'textAnchor': 'middle'
+    };
+    var t = 'translate(' + this.props.x + ',' + this.props.y + ')';
     return (
-      <div style={cellStyle} className='cell' 
-        onMouseMove={this.handleMouseMove} 
-        onMouseOut={this.handleMouseOut} 
-      >
-        {this.props.children}
-      </div>
+      <g transform={t}>
+        <rect 
+          fill={this.props.fill}
+          width={this.props.width}
+          height={this.props.height}
+        />
+        <text
+          x={this.props.width / 2} 
+          y={this.props.height / 2}
+          dy='.35em'
+          style={textStyle}
+        >
+          {this.props.label}
+        </text>
+      </g>
     );
   }
 });
@@ -55,35 +41,32 @@ var DataSeries = React.createClass({
   },
 
   render: function() {
-        var value = this.props.value;
-        var data = this.props.data;
-        var color = d3.scale.category20b();
-        var treemap = d3.layout.treemap()
-                        .children(function(d) { return d })
-                        .size([this.props.width, this.props.height])
-                        .sticky(true)
-                        .value(function(d) { return d[value] }); 
+    var value = this.props.value;
+    var data = this.props.data;
+    var color = d3.scale.category20b();
+    var treemap = d3.layout.treemap()
+                    .children(function(d) { return d })
+                    .size([this.props.width, this.props.height])
+                    .sticky(true)
+                    .value(function(d) { return d[value]}); 
 
-        var maps = treemap(data).map(function(tree, i) {
-           return (
-                  <Cell
-                    left={tree.x} top={tree.y}    
-                    width={tree.dx} height={tree.dy}
-                    key={i} cellColor={color(i)} 
-                    name={tree.name}
-                    value={tree.value}
-                    owner={tree.owner}
-                  > 
-                    <a 
-                      href={tree.url} target='_blank'>
-                      {tree.name} <br/> &#9733; {tree.stars}
-                    </a>
-                  </Cell>
-                  )
-        }, this);
-        
-        return (
-          <div className='dataseries'>{maps}</div>
+      var cells = treemap(data).map(function(tree, i) {
+         return (
+                <Cell
+                  fill={color(i)} 
+                  width={tree.dx}
+                  height={tree.dy}
+                  x={tree.x} 
+                  y={tree.y}    
+                  label={tree.name}
+                  key={i} 
+                > 
+                </Cell>
+                )
+      }, this);
+
+      return (
+        <g className='dataseries'>{cells}</g>
       )
   }
 });
@@ -99,13 +82,10 @@ var Treemap = React.createClass({
     }
   },
  render: function() {
-    var style = {
-      position: 'relative'
-    };
     return (
-      <div style={style}>
-        <DataSeries data={this.props.data} value={this.props.value} width={this.props.width} height={this.props.height}/>
-      </div>
+      <svg width={this.props.width} height={this.props.height}>
+        <DataSeries width={this.props.width} height={this.props.height} data={this.props.data} value={this.props.value} />
+      </svg>
     )
   }
 });
