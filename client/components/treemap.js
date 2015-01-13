@@ -7,9 +7,12 @@ var superagent = require('superagent');
 var Cell = React.createClass({
    render: function() {
     var textStyle = {
-      'textAnchor': 'middle'
+      'textAnchor': 'middle',
+      'fill': '#f7f7f7',
+      'fontSize': '.65em'
     };
     var t = 'translate(' + this.props.x + ',' + this.props.y + ')';
+
     return (
       <g transform={t}>
         <rect 
@@ -21,6 +24,8 @@ var Cell = React.createClass({
           x={this.props.width / 2} 
           y={this.props.height / 2}
           dy='.35em'
+          textLength='50'
+          lengthAdjust='spacing'
           style={textStyle}
         >
           {this.props.label}
