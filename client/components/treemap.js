@@ -24,8 +24,6 @@ var Cell = React.createClass({
           x={this.props.width / 2} 
           y={this.props.height / 2}
           dy='.35em'
-          textLength='50'
-          lengthAdjust='spacing'
           style={textStyle}
         >
           {this.props.label}
