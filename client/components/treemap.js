@@ -5,6 +5,7 @@ var d3 = require('d3');
 var superagent = require('superagent');
 
 var Cell = React.createClass({
+    
    render: function() {
     var textStyle = {
       'textAnchor': 'middle',
@@ -21,12 +22,11 @@ var Cell = React.createClass({
           height={this.props.height}
         />
         <text
-          x={this.props.width / 2} 
           y={this.props.height / 2}
-          dy='.35em'
           style={textStyle}
         >
-          {this.props.label}
+          <tspan x={this.props.width / 2}>{this.props.label}</tspan>
+          <tspan x={this.props.width / 2} dy='1.2em'>{'\u2605' + this.props.value}</tspan>
         </text>
       </g>
     );
@@ -62,6 +62,8 @@ var DataSeries = React.createClass({
                   x={tree.x} 
                   y={tree.y}    
                   label={tree.name}
+                  url={tree.url}
+                  value={tree.value}
                   key={i} 
                 > 
                 </Cell>
