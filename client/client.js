@@ -40,7 +40,7 @@ var App = React.createClass({
           </head>
           <body>
             <header>
-              <h1>Top 100 Github Repository</h1>
+              <h1>Top 100 Starred Github Repository</h1>
             </header>
             <div className='treemap-container'>
               <Treemap data={this.state.data} value='stars' width={960} height={500} />
