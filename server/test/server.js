@@ -1,12 +1,26 @@
 'use strict';
 var superagent = require('superagent'),
-    
+    app = require('../server'),
+    server,
     expect = require('expect.js');
 
 describe('gh-star rest api server', function() {
   
   var ENDPOINT_URI = 'http://localhost:5000';
-  
+  before(function(done) {
+    server = app.listen(function(err, result) {
+      if(err) {
+        done(err); 
+      } else {
+        done(); 
+      } 
+    })
+  }); 
+
+  after(function(done) {
+    server.close(done); 
+  })
+
   it('should response', function(done) {
     superagent.get(ENDPOINT_URI)
       .end(function(e, res) {
