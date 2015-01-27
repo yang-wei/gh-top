@@ -10,7 +10,7 @@ var express =require('express'),
     App = require('../client/client')
     ;
 
-var app = express();
+var app = module.exports = express();
 
 app.use(bodyParser.json());
 app.use('/public', express.static(__dirname + '/../public'));
