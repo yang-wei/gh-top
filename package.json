@@ -1,6 +1,6 @@
 {
   "name": "gh-star",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "",
   "repository": {
     "type": "git",
@@ -13,7 +13,7 @@
   ],
   "scripts": {
     "test": "npm run test-server & npm run test-comp",
-    "test-server": "./node_modules/.bin/mocha --reporter list server/test",
+    "test-server": "./node_modules/.bin/mocha -R list server/test",
     "test-comp": "./node_modules/.bin/mocha -R spec --compilers jsx:client/components/tests/helper.js client/components/tests/*test.js",
     "build": "browserify -t reactify client/client.js -o public/bundle.js",
     "build-min": "browserify -t reactify client/client.js | uglifyjs -o public/bundle.js",
