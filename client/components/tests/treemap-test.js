@@ -1,35 +1,26 @@
 'use strict'
+var React = require('react/addons'); 
+var TreemapComp = require('../treemap');
+var TestUtils = React.addons.TestUtils;
+var assert = require('assert');
 
 describe('Treemap testing', function() {
-  var dummyTree;
-
-  before(function() {
-    dummyTree = {
-      name: "tree",
-      children: [
-          { name: "Word-wrapping comes for free in HTML", size: 16000 },
-          { name: "animate makes things fun", size: 8000 },
-          { name: "data data everywhere...", size: 5220 },
-          { name: "display something beautiful", size: 3623 },
-          { name: "flex your muscles", size: 984 },
-          { name: "physics is religion", size: 6410 },
-          { name: "query and you get the answer", size: 2124 }
-      ]
-    };
+  before('render and locate element', function() {
   });
 
   it('Should render component', function() {
-    var React = require('react/addons'); 
-    var TreemapComp = require('../treemap');
-    var TestUtils = React.addons.TestUtils;
-    var assert = require('assert');
+    
+    var fakeData = [{'name': 'test1', 'star': 10}, {'name': 'test2', 'star': 10} ];
+    var TreemapFactory = React.createFactory(TreemapComp); 
+    var Treemap = TreemapFactory({
+      data: fakeData
+    });
+    var Body = document.getElementsByTagName('body')[0];
 
-    //var treemap = TestUtils.renderIntoDocument(<TreemapComp width={500} height={300} data={dummyTree} value='size' />);
-    assert.ok(true);
-    //var tree = TestUtils.scryRenderedDOMComponentsWithClass(treemap, 'cell'); 
-    //assert.equal(TestUtils.isCompositeComponent(treemap), true);
+    // Now render it
+    var renderedComponent = React.render(Treemap, Body); 
 
-    //assert.equal(tree.length , dummyTree.children.length);
-
+    var rect = TestUtils.scryRenderedDOMComponentsWithTag(renderedComponent, 'rect');
+    assert(rect.length, fakeData.length);
   })
 })
