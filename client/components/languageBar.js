@@ -6,7 +6,8 @@ var cx = React.addons.classSet;
 module.exports = React.createClass({
   getDefaultProps: function() {
     return {
-      lang: 'All'
+      lang: 'All',
+      languages: languages
     }
   },
 
@@ -21,7 +22,7 @@ module.exports = React.createClass({
     }
   },     
   render: function() {
-    var options = languages.map(function(lang, i) { 
+    var options = this.props.languages.map(function(lang, i) { 
       var isActive = cx({
         'active': lang.label === this.props.lang
       });
